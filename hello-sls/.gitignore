@@ -1,0 +1,12 @@
+# package directories
+node_modules
+jspm_packages
+
+# Serverless directories
+.serverless
+.build
+
+yarn.lock
+package-lock.json
+out-logger.json
+.DS_Store
