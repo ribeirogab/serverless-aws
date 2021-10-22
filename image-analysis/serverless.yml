@@ -1,0 +1,36 @@
+service: image-analysis
+
+frameworkVersion: '2'
+
+plugins:
+  - serverless-plugin-typescript
+
+
+custom:
+  functionName: ${sls:stage}-image-analysis
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  lambdaHashingVersion: 20201221
+  stackName: ${self:custom.functionName}
+  apiName: ${self:custom.functionName}
+  iamRoleStatements:
+    - Effect: 'Allow'
+      Action:
+        - 'rekognition:DetectLabels'
+      Resource: '*'
+    - Effect: 'Allow'
+      Action:
+        - 'translate:TranslateText'
+      Resource: '*'
+
+functions:
+  image-analysis:
+    name: ${self:custom.functionName}
+    handler: app/handler.analyze
+    events:
+      - http:
+          path: analyze
+          method: get
+
