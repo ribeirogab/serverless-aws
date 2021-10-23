@@ -1,0 +1,1 @@
+export { CreateHeroService } from './CreateHeroService';

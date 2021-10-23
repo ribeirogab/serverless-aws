@@ -1,0 +1,14 @@
+{
+  "name": "trigger-dynamo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "aws-sdk": "^2.997.0"
+  },
+  "devDependencies": {
+    "@types/node": "^16.10.2",
+    "serverless-plugin-typescript": "^2.1.0",
+    "typescript": "^4.4.3"
+  }
+}
