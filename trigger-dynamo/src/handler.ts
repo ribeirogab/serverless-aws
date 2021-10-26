@@ -1,24 +1,21 @@
-import { Event, Response } from './contracts/IHandler';
+import { Event } from './contracts/IHandler';
 import { heroesDynamoDBRepository } from './repositories/HeroesDynamoDBRepository';
 import { CreateHeroService } from './services';
-import { validate, createHeroValidator } from './validators';
-import { ok, serverError } from './helpers/httpHelper';
+import { CreateHeroController, TriggerHeroController } from './controllers';
 
 class Handler {
-  @validate({ schema: createHeroValidator, argsType: 'body' })
-  async createHero(data: Event): Promise<Response> {
-    try {
-      const createHeroService = new CreateHeroService(heroesDynamoDBRepository);
-      const hero = await createHeroService.execute(data);
+  public async createHero(event: Event) {
+    const createHeroService = new CreateHeroService(heroesDynamoDBRepository);
+    const createHeroController = new CreateHeroController(createHeroService);
+    return createHeroController.handle(event);
+  }
 
-      return ok({ hero });
-    } catch (error) {
-      console.log('Error***', error);
-      return serverError();
-    }
+  public async triggerHero(event: Event) {
+    const triggerHeroController = new TriggerHeroController();
+    return triggerHeroController.handle(event);
   }
 }
 
 const handler = new Handler();
 
-export const { createHero } = handler;
+export const { createHero, triggerHero } = handler;

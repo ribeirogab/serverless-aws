@@ -1,10 +1,12 @@
 import { IHero } from '../models/IHero';
+import { IService } from './IService';
 
-export type Payload = {
+export type CreateHeroServicePayload = {
   name: string;
-  ability: string;
+  ability?: string;
 };
 
-export interface ICreateHeroService {
-  execute(data: Payload): Promise<IHero>;
-}
+export type ICreateHeroService = IService<
+  CreateHeroServicePayload,
+  Promise<IHero>
+>;

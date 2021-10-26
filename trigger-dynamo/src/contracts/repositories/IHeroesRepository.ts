@@ -2,7 +2,7 @@ import { IHero } from '../models/IHero';
 
 export type CreateParams = {
   name: string;
-  ability: string;
+  ability?: string;
 };
 
 export interface IHeroesRepository {
